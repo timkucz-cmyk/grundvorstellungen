@@ -3,7 +3,7 @@
 // Faustformel Fahrschule: s = a · (v/10)²   (a = 1 normale Bremsung, a = 0,5 Gefahrenbremsung)
 
 const NS = "http://www.w3.org/2000/svg";
-const FARBE = { zuordnung: "#2563eb", kovariation: "#ea580c", objekt: "#7c3aed", grau: "#94a3b8", text: "#1e293b" };
+const FARBE = { zuordnung: "#17181a", kovariation: "#17181a", objekt: "#17181a", grau: "#b5b9b6", text: "#17181a" };
 
 function el(tag, attrs = {}, parent) {
   const e = document.createElementNS(NS, tag);
@@ -27,15 +27,15 @@ function achsen(svg, { W = 560, H = 360, xmax = 100, ymax = 120 } = {}) {
   const Y = (s) => H - P.b - (s / ymax) * (H - P.t - P.b);
   const g = el("g", {}, svg);
   for (let v = 0; v <= xmax; v += 10) {
-    el("line", { x1: X(v), y1: Y(0), x2: X(v), y2: Y(ymax), stroke: "#e2e8f0" }, g);
-    txt(g, X(v), Y(0) + 18, v, { "text-anchor": "middle", "font-size": 12, fill: "#64748b" });
+    el("line", { x1: X(v), y1: Y(0), x2: X(v), y2: Y(ymax), stroke: "#ecece8" }, g);
+    txt(g, X(v), Y(0) + 18, v, { "text-anchor": "middle", "font-size": 12, fill: "#646a72" });
   }
   for (let s = 0; s <= ymax; s += 20) {
-    el("line", { x1: X(0), y1: Y(s), x2: X(xmax), y2: Y(s), stroke: "#e2e8f0" }, g);
-    txt(g, X(0) - 8, Y(s) + 4, s, { "text-anchor": "end", "font-size": 12, fill: "#64748b" });
+    el("line", { x1: X(0), y1: Y(s), x2: X(xmax), y2: Y(s), stroke: "#ecece8" }, g);
+    txt(g, X(0) - 8, Y(s) + 4, s, { "text-anchor": "end", "font-size": 12, fill: "#646a72" });
   }
-  el("line", { x1: X(0), y1: Y(0), x2: X(xmax), y2: Y(0), stroke: "#334155", "stroke-width": 1.5 }, g);
-  el("line", { x1: X(0), y1: Y(0), x2: X(0), y2: Y(ymax), stroke: "#334155", "stroke-width": 1.5 }, g);
+  el("line", { x1: X(0), y1: Y(0), x2: X(xmax), y2: Y(0), stroke: "#3d4147", "stroke-width": 1.5 }, g);
+  el("line", { x1: X(0), y1: Y(0), x2: X(0), y2: Y(ymax), stroke: "#3d4147", "stroke-width": 1.5 }, g);
   txt(g, X(xmax), Y(0) + 36, "Geschwindigkeit v in km/h", { "text-anchor": "end", "font-size": 12 });
   txt(g, X(0) + 6, Y(ymax) + 4, "Bremsweg s in m", { "font-size": 12 });
   return { X, Y, xmax, ymax };
@@ -82,8 +82,8 @@ function vizZuordnung(container, { statisch = false } = {}) {
   const pd = el("svg", { class: "pfeildiagramm", viewBox: "0 0 240 360", role: "img", "aria-label": "Pfeildiagramm" });
   box.appendChild(pd);
   const werte = [20, 40, 60, 80, 100];
-  el("rect", { x: 10, y: 30, width: 80, height: 300, rx: 40, fill: "#eff6ff", stroke: "#bfdbfe" }, pd);
-  el("rect", { x: 150, y: 30, width: 80, height: 300, rx: 40, fill: "#eff6ff", stroke: "#bfdbfe" }, pd);
+  el("rect", { x: 10, y: 30, width: 80, height: 300, rx: 40, fill: "#f6f6f4", stroke: "#e4e5e3" }, pd);
+  el("rect", { x: 150, y: 30, width: 80, height: 300, rx: 40, fill: "#f6f6f4", stroke: "#e4e5e3" }, pd);
   txt(pd, 50, 20, "v in km/h", { "text-anchor": "middle", "font-size": 12 });
   txt(pd, 190, 20, "s in m", { "text-anchor": "middle", "font-size": 12 });
   el("defs", {}, pd).innerHTML = `<marker id="pf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="currentColor"/></marker>`;
@@ -139,10 +139,10 @@ function vizKovariation(container, { statisch = false } = {}) {
       const v0 = i * dv, v1 = v0 + dv;
       const s0 = bremsweg(v0), s1 = bremsweg(v1);
       const an = i === aktiv;
-      const c = an ? FARBE.kovariation : "#fdba74";
+      const c = an ? FARBE.kovariation : "#9aa1a9";
       el("line", { x1: k.X(v0), y1: k.Y(s0), x2: k.X(v1), y2: k.Y(s0), stroke: c, "stroke-width": an ? 3 : 2 }, gDreiecke);
       el("line", { x1: k.X(v1), y1: k.Y(s0), x2: k.X(v1), y2: k.Y(s1), stroke: c, "stroke-width": an ? 5 : 3 }, gDreiecke);
-      if (dv >= 10 || an) txt(gDreiecke, k.X(v1) + 5, (k.Y(s0) + k.Y(s1)) / 2 + 4, "+" + fmt(s1 - s0), { "font-size": an ? 14 : 11, fill: an ? FARBE.kovariation : "#c2410c", "font-weight": an ? 700 : 400 });
+      if (dv >= 10 || an) txt(gDreiecke, k.X(v1) + 5, (k.Y(s0) + k.Y(s1)) / 2 + 4, "+" + fmt(s1 - s0), { "font-size": an ? 14 : 11, fill: an ? FARBE.kovariation : "#646a72", "font-weight": an ? 700 : 400 });
       const hit = el("rect", { x: k.X(v0), y: k.Y(k.ymax), width: k.X(v1) - k.X(v0), height: k.Y(0) - k.Y(k.ymax), fill: "transparent", style: "cursor:pointer" }, gDreiecke);
       hit.addEventListener("mouseenter", () => { aktiv = i; zeichne(); });
       hit.addEventListener("click", () => { aktiv = i; zeichne(); });
@@ -185,13 +185,13 @@ function vizObjekt(container, { statisch = false } = {}) {
     const s100 = bremsweg(100, a);
     const vEnde = s100 > k.ymax ? 10 * Math.sqrt(k.ymax / a) : 100;
     txt(gAkt, k.X(vEnde) - 8, k.Y(bremsweg(vEnde, a)) + 22, `a = ${fmt(a, 2)}`, { "text-anchor": "end", fill: FARBE.objekt, "font-weight": 700, "font-size": 15 });
-    txt(gAkt, k.X(100) - 4, k.Y(100) - 8, "a = 1 (normal)", { "text-anchor": "end", fill: "#64748b", "font-size": 12 });
+    txt(gAkt, k.X(100) - 4, k.Y(100) - 8, "a = 1 (normal)", { "text-anchor": "end", fill: "#646a72", "font-size": 12 });
     const art = a < 0.75 ? "wie eine Gefahrenbremsung (stärker bremsen)" : a > 1.05 ? "wie glatte, nasse Fahrbahn (schlechter bremsen)" : "normale Bremsung";
     info.innerHTML = `s = <b style="color:${FARBE.objekt}">${fmt(a, 2)}</b> · (v : 10)² – ${art}.<br>
       Nicht ein Punkt ändert sich, sondern <b>der ganze Graph</b>: Er wird gestreckt oder gestaucht, bleibt aber eine Parabel durch den Ursprung.`;
   }
   if (statisch) {
-    [0.5, 1.2].forEach((a) => kurve(gSchar, k, a, { stroke: "#c4b5fd", "stroke-width": 2 }));
+    [0.5, 1.2].forEach((a) => kurve(gSchar, k, a, { stroke: "#cfd1cf", "stroke-width": 2 }));
     zeichne(0.5);
     return;
   }
@@ -204,7 +204,7 @@ function vizObjekt(container, { statisch = false } = {}) {
     if (b.hasAttribute("data-schar")) {
       const an = b.classList.toggle("an");
       gSchar.innerHTML = "";
-      if (an) for (let a = 0.3; a <= 1.51; a += 0.2) kurve(gSchar, k, a, { stroke: "#ddd6fe", "stroke-width": 2 });
+      if (an) for (let a = 0.3; a <= 1.51; a += 0.2) kurve(gSchar, k, a, { stroke: "#e4e5e3", "stroke-width": 2 });
       return;
     }
     inp.value = b.dataset.a; inp.dispatchEvent(new Event("input"));

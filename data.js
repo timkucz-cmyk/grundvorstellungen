@@ -5,11 +5,11 @@
 const STUFEN = ["5", "6", "7", "8", "9", "10", "E", "Q1", "Q2"];
 
 const LEITIDEEN = {
-  Z: { name: "Zahl und Operation", farbe: "#2563eb" },
-  G: { name: "Größen und Messen", farbe: "#b45309" },
-  R: { name: "Raum und Form", farbe: "#047857" },
-  F: { name: "Funktionaler Zusammenhang", farbe: "#7c3aed" },
-  D: { name: "Daten und Zufall", farbe: "#be123c" },
+  Z: { name: "Zahl und Operation", kuerzel: "Z&O" },
+  G: { name: "Größen und Messen", kuerzel: "G&M" },
+  R: { name: "Raum und Form", kuerzel: "R&F" },
+  F: { name: "Funktionaler Zusammenhang", kuerzel: "FZ" },
+  D: { name: "Daten und Zufall", kuerzel: "D&Z" },
 };
 
 const KONZEPTE = [
@@ -234,6 +234,8 @@ const AUSARBEITUNGEN = {
         diagnose: "Lies ab: Welcher Bremsweg gehört zu 70 km/h? Welche Geschwindigkeit gehört zu einem Bremsweg von 25 m?",
         loesung: "s(70) = 49 m. Rückwärts: (v : 10)² = 25 ⇒ v = 50 km/h. Wer hier rät statt abzulesen, hat die Richtung der Zuordnung nicht sicher.",
         stufen: "ab Kl. 5/6 (Tabellen, Diagramme) · Kl. 7 Zuordnungen · Kl. 8 Funktionsbegriff · bis Q2 (Umkehrfunktion, Definitionsmenge)",
+        sprache: "„Zu 60 km/h gehört ein Bremsweg von 36 m.“ · „s von 60 ist 36.“ · „Welcher Wert gehört zu …?“",
+        impuls: "<b>Funktionsmaschine:</b> Eine Person ist die Maschine und kennt die Regel, die Klasse ruft Eingaben und notiert die Ausgaben in einer Tabelle. Danach wird die Regel gesucht – und rückwärts gefragt: Welche Eingabe ergibt 36?",
       },
       {
         key: "kovariation",
@@ -249,6 +251,8 @@ const AUSARBEITUNGEN = {
         diagnose: "Lukas sagt: „Wenn ich doppelt so schnell fahre, ist mein Bremsweg doppelt so lang.“ Nimm Stellung.",
         loesung: "Falsch: s(50) = 25 m, s(100) = 100 m – vierfacher Bremsweg. Pro +10 km/h wächst der Zuwachs (+1, +3, +5, +7 … m).",
         stufen: "ab Kl. 6/7 (je – desto, Proportionalität) · Kl. 8 Steigung · E-Phase mittlere/lokale Änderungsrate · Q Ableitung",
+        sprache: "„Je schneller, desto länger – und zwar immer stärker.“ · „Pro 10 km/h mehr kommen immer mehr Meter dazu.“",
+        impuls: "<b>Differenzenspalte:</b> Wertetabelle in 10er-Schritten anlegen und eine Spalte „Zuwachs“ ergänzen. Dann die Stufen in den Graphen einzeichnen. Leitsatz für die Klasse: Gleiche Schritte in x – was passiert in y?",
       },
       {
         key: "objekt",
@@ -264,8 +268,19 @@ const AUSARBEITUNGEN = {
         diagnose: "Skizziere den Bremsweg-Graphen für eine Gefahrenbremsung (a = 0,5) in dasselbe Koordinatensystem. Was bleibt gleich, was ändert sich?",
         loesung: "Gleich: Parabel durch (0|0), steigend, gleiche Form. Anders: an jeder Stelle halb so hoch – der ganze Graph wird mit 0,5 gestaucht.",
         stufen: "ab Kl. 8/9 (Funktionstypen, Parameter) · Kl. 10 Funktionenvergleich · E/Q Scharen, Ableitungsfunktion",
+        sprache: "„Die Bremsweg-Funktion ist eine Parabel.“ · „Bei Gefahrenbremsung wird der ganze Graph gestaucht.“",
+        impuls: "<b>Graphen zuordnen:</b> Drei Graphen (normal, Gefahrenbremsung, nasse Fahrbahn) ohne Zahlen zeigen: Welcher gehört wozu – und woran erkennst du das am ganzen Graphen? Danach mit dem Regler die Vermutungen prüfen.",
       },
     ],
+    wechsel: {
+      text: "Verstanden ist der Begriff erst, wenn man je nach Frage den passenden Blickwinkel wählt. Eine Aufgabe, die alle drei braucht:",
+      aufgabe: [
+        ["Zuordnung", "Wie lang ist der Bremsweg bei 80 km/h?"],
+        ["Kovariation", "Was bringt mehr: von 30 auf 20 km/h oder von 100 auf 90 km/h abbremsen?"],
+        ["Objekt", "Auf nasser Fahrbahn ist der Bremsweg anderthalbmal so lang. Skizziere den neuen Graphen."],
+      ],
+      loesung: "a) 64 m. b) 30 → 20: 9 m − 4 m = 5 m kürzer; 100 → 90: 100 m − 81 m = 19 m kürzer – dieselbe Verringerung bringt bei hohem Tempo viel mehr. c) Der ganze Graph wird mit 1,5 gestreckt, bleibt eine Parabel durch den Ursprung.",
+    },
     anschluss: [
       ["Zuordnung", "Wertetabelle (5/6) → Funktionsbegriff (8) → Umkehrfunktion, Definitionsmenge (Q)"],
       ["Kovariation", "je – desto (6) → konstante Steigung (8) → mittlere Änderungsrate (E) → Ableitung als lokale Änderungsrate (Q)"],
