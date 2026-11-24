@@ -138,43 +138,29 @@ function renderKonzept(id) {
 
 function renderAusarbeitung(k, A) {
   kopfKonzept(k, A.einleitung);
-  const feld = (titel, inhalt) => `<div class="feld"><h3>${titel}</h3>${inhalt}</div>`;
+  kopf.querySelector('.wrap').insertAdjacentHTML('beforeend', `<div class="kopf-zusatz"><span>${A.kontext}</span><a href="#plakat/${k.id}">Plakat DIN A1 →</a></div>`);
+  const klappe = (titel, inhalt) => `<details><summary>${titel}</summary><div class="klappe">${inhalt}</div></details>`;
   main.innerHTML = `
-    <div class="kacheln">${A.gv.map((g, i) => `<a class="kachel" href="#gv-${g.key}" data-ziel="gv-${g.key}">
-      <div class="nr-zeile"><span class="nr">${i + 1}</span><b>${g.name}</b></div>
-      <p class="leitfrage">„${g.leitfrage}“</p>${MINI[g.key]}
-      <p>${k.gv[i].kurz}</p></a>`).join("")}</div>
-    <div class="block"><p style="margin:0">${A.kontext}</p></div>
-    ${A.gv.map((g, i) => `<section class="abschnitt" id="gv-${g.key}">
-      <div class="abschnitt-kopf"><h2><span class="nr">${i + 1}</span>${g.name}</h2><span class="leitfrage">„${g.leitfrage}“</span></div>
-      <p class="kern">${g.kern}</p>
-      <div class="viz" data-viz="${g.key}"></div>
-      <div class="felder">
-        ${feld("Typische Fehlvorstellungen", `<ul>${g.fehler.map((f) => `<li>${f}</li>`).join("")}</ul>`)}
-        ${feld("Diagnoseaufgabe", `<p>${g.diagnose}</p><details><summary>Erwartung anzeigen</summary><p>${g.loesung}</p></details>`)}
-        ${feld("Impuls für den Unterricht", `<p>${g.impuls}</p>`)}
-        ${feld("So klingt es im Unterricht", `<p>${g.sprache}</p>`)}
-        ${feld("Darstellungen", `<p>${g.bilder}</p>`)}
-        ${feld("Wo im Curriculum", `<p>${g.stufen}</p>`)}
+    ${A.gv.map((g, i) => `<section class="gv-zeile" id="gv-${g.key}">
+      <div class="gv-bild">${MINI[g.key]}</div>
+      <div class="gv-text">
+        <div class="nr-zeile"><span class="nr">${i + 1}</span><b>${g.name}</b></div>
+        <p class="leitfrage">„${g.leitfrage}“</p>
+        <p class="kern">${g.kern}</p>
+        <div class="klappen">
+          ${klappe("Interaktiv ausprobieren", `<div class="viz" data-viz="${g.key}"></div>`)}
+          ${klappe("Typische Fehler", `<ul>${g.fehler.map((f) => `<li>${f}</li>`).join("")}</ul>`)}
+          ${klappe("Diagnoseaufgabe", `<p>${g.diagnose}</p><p class="leise">Erwartung: ${g.loesung}</p>`)}
+          ${klappe("Im Unterricht", `<p>${g.impuls}</p><p>${g.sprache}</p><p class="leise">${g.stufen}</p>`)}
+        </div>
       </div>
     </section>`).join("")}
-    <section class="abschnitt">
-      <h2>Zwischen den Blickwinkeln wechseln</h2>
-      <p class="kern">${A.wechsel.text}</p>
-      <div class="feld"><h3>Aufgabe · Bremsweg</h3>
-        <ol type="a">${A.wechsel.aufgabe.map(([gv, t]) => `<li>${t} <span class="leise">(${gv})</span></li>`).join("")}</ol>
-        <details><summary>Erwartung anzeigen</summary><p>${A.wechsel.loesung}</p></details></div>
-    </section>
-    <section class="abschnitt">
-      <h2>Entwicklungslinien</h2>
-      <div>${A.anschluss.map(([n, t]) => `<div class="al"><b>${n}</b><span>${t}</span></div>`).join("")}</div>
-      <div class="knoepfe-zeile"><a class="knopf" href="#plakat/${k.id}">Plakat DIN A1 öffnen</a><a class="knopf zwei" href="#linie">Zur Entwicklungslinie</a></div>
-    </section>
-    <section class="quellen"><b>Quellen</b><ul>${A.quellen.map((q) => `<li>${QUELLEN[q]}</li>`).join("")}</ul></section>`;
+    <section class="block klappen">
+      ${klappe("Zwischen den Blickwinkeln wechseln", `<ol type="a">${A.wechsel.aufgabe.map(([gv, t]) => `<li>${t} <span class="leise">(${gv})</span></li>`).join("")}</ol><p class="leise">Erwartung: ${A.wechsel.loesung}</p>`)}
+      ${klappe("Entwicklungslinien", A.anschluss.map(([n, t]) => `<div class="al"><b>${n}</b><span>${t}</span></div>`).join(""))}
+      ${klappe("Quellen", `<ul class="quellen">${A.quellen.map((q) => `<li>${QUELLEN[q]}</li>`).join("")}</ul>`)}
+    </section>`;
   main.querySelectorAll(".viz").forEach((d) => VIZ[d.dataset.viz](d));
-  main.querySelectorAll("[data-ziel]").forEach((a) => a.addEventListener("click", (e) => {
-    e.preventDefault(); document.getElementById(a.dataset.ziel).scrollIntoView({ behavior: "smooth" });
-  }));
 }
 
 // ---------- Plakat (DIN A1 hoch) ----------

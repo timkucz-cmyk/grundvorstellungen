@@ -175,3 +175,25 @@ body.plakat-modus main.wrap { max-width: none; margin-top: 0; padding: 16px; }
   .plakat { box-shadow: none; zoom: 2.5; width: calc(594mm / 2.5); height: calc(841mm / 2.5); aspect-ratio: auto; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+/* ---------- Konzeptseite kompakt ---------- */
+.gv-zeile { background: #fff; border: 1px solid var(--linie); border-radius: var(--radius); padding: 20px 24px; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 28px; align-items: start; box-shadow: var(--schatten); }
+.gv-text { display: flex; flex-direction: column; gap: 6px; }
+.gv-text .kern { margin: 4px 0 6px; font-size: 18px; max-width: 62ch; }
+.klappen details { border-top: 1px solid var(--linie); margin: 0; }
+.klappen details:last-child { border-bottom: 1px solid var(--linie); }
+.klappen summary { min-height: 44px; font-weight: 700; color: var(--text); list-style: none; display: flex; align-items: center; justify-content: space-between; }
+.klappen summary::-webkit-details-marker { display: none; }
+.klappen summary::after { content: "+"; font-size: 22px; font-weight: 400; color: var(--leise); }
+.klappen details[open] summary::after { content: "–"; }
+.klappe { padding: 0 0 14px; font-size: 16px; }
+.klappe p { margin: 0 0 6px; }
+.klappe ul, .klappe ol { margin: 0 0 6px; padding-left: 20px; }
+.block.klappen { padding: 6px 20px; }
+.block.klappen details:first-child { border-top: 0; }
+.block.klappen details:last-child { border-bottom: 0; }
+.quellen { font-size: 13px; color: var(--leise); }
+@media (max-width: 760px) { .gv-zeile { grid-template-columns: 1fr; gap: 12px; } }
+.kopf-zusatz { display: flex; gap: 8px 20px; flex-wrap: wrap; align-items: center; margin-top: 8px; font-size: 15px; color: #cfd3d8; }
+.kopf-zusatz a { color: var(--mathe-hell); font-weight: 700; text-decoration: none; }
+@media (max-width: 760px) { .gv-zeile { grid-template-columns: minmax(0, 1fr); } .gv-bild { max-width: 320px; } }
