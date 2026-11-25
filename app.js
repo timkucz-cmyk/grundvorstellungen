@@ -21,6 +21,8 @@ const MINI = {
   objekt: `<svg class="mini" viewBox="0 0 240 150" role="img" aria-label="Schar von Parabeln">${ACHSEN}<path d="M20 130 Q120 130 220 75" stroke="#cfd1cf" stroke-width="2.5" fill="none"/><path d="M20 130 Q90.5 130 161 20" stroke="#cfd1cf" stroke-width="2.5" fill="none"/>${PARABEL("#17181a", 3.5)}</svg>`,
 };
 
+const bildVon = (g) => g.bild ? `<svg class="mini" viewBox="0 0 240 150" role="img" aria-label="${g.name}">${g.bild}</svg>` : MINI[g.key];
+
 // ---------- Kopfband ----------
 function kopfStart(aktiv, titel, text) {
   const nav = [["", "Karten"], ["linie", "Entwicklungslinie"], ["plakate", "Plakate"]]
@@ -138,17 +140,17 @@ function renderKonzept(id) {
 
 function renderAusarbeitung(k, A) {
   kopfKonzept(k, A.einleitung);
-  kopf.querySelector('.wrap').insertAdjacentHTML('beforeend', `<div class="kopf-zusatz"><span>${A.kontext}</span><a href="#plakat/${k.id}">Plakat DIN A1 →</a></div>`);
+  kopf.querySelector('.wrap').insertAdjacentHTML('beforeend', `<div class="kopf-zusatz"><span>${A.kontext || A.untertitel || ""}</span><a href="#plakat/${k.id}">Plakat DIN A1 →</a></div>`);
   const klappe = (titel, inhalt) => `<details><summary>${titel}</summary><div class="klappe">${inhalt}</div></details>`;
   main.innerHTML = `
     ${A.gv.map((g, i) => `<section class="gv-zeile" id="gv-${g.key}">
-      <div class="gv-bild">${MINI[g.key]}</div>
+      <div class="gv-bild">${bildVon(g)}</div>
       <div class="gv-text">
         <div class="nr-zeile"><span class="nr">${i + 1}</span><b>${g.name}</b></div>
         <p class="leitfrage">„${g.leitfrage}“</p>
         <p class="kern">${g.kern}</p>
         <div class="klappen">
-          ${klappe("Interaktiv ausprobieren", `<div class="viz" data-viz="${g.key}"></div>`)}
+          ${VIZ[g.key] ? klappe("Interaktiv ausprobieren", `<div class="viz" data-viz="${g.key}"></div>`) : ""}
           ${klappe("Typische Fehler", `<ul>${g.fehler.map((f) => `<li>${f}</li>`).join("")}</ul>`)}
           ${klappe("Diagnoseaufgabe", `<p>${g.diagnose}</p><p class="leise">Erwartung: ${g.loesung}</p>`)}
           ${klappe("Im Unterricht", `<p>${g.impuls}</p><p>${g.sprache}</p><p class="leise">${g.stufen}</p>`)}
@@ -156,8 +158,8 @@ function renderAusarbeitung(k, A) {
       </div>
     </section>`).join("")}
     <section class="block klappen">
-      ${klappe("Zwischen den Blickwinkeln wechseln", `<ol type="a">${A.wechsel.aufgabe.map(([gv, t]) => `<li>${t} <span class="leise">(${gv})</span></li>`).join("")}</ol><p class="leise">Erwartung: ${A.wechsel.loesung}</p>`)}
-      ${klappe("Entwicklungslinien", A.anschluss.map(([n, t]) => `<div class="al"><b>${n}</b><span>${t}</span></div>`).join(""))}
+      ${A.wechsel ? klappe("Zwischen den Blickwinkeln wechseln", `<ol type="a">${A.wechsel.aufgabe.map(([gv, t]) => `<li>${t} <span class="leise">(${gv})</span></li>`).join("")}</ol><p class="leise">Erwartung: ${A.wechsel.loesung}</p>`) : ""}
+      ${A.anschluss ? klappe("Entwicklungslinien", A.anschluss.map(([n, t]) => `<div class="al"><b>${n}</b><span>${t}</span></div>`).join("")) : klappe("Wo im Curriculum", A.gv.map((g) => `<div class="al"><b>${g.name}</b><span>${g.stufen}</span></div>`).join(""))}
       ${klappe("Quellen", `<ul class="quellen">${A.quellen.map((q) => `<li>${QUELLEN[q]}</li>`).join("")}</ul>`)}
     </section>`;
   main.querySelectorAll(".viz").forEach((d) => VIZ[d.dataset.viz](d));
@@ -174,7 +176,7 @@ function renderPlakat(id) {
     <div class="plakat-leiste"><a href="#k/${k.id}">← zurück</a><button class="knopf" onclick="window.print()">Drucken / als PDF (A1)</button>
       <span class="leise">Im Druckdialog Papierformat A1 wählen, Ränder „keine“.</span></div>
     <article class="plakat">
-      <header><p class="ueber">Grundvorstellung · ${LEITIDEEN[k.leitidee].name}</p><h1>${A.titel}</h1><p>Eine Funktion – drei Blickwinkel</p></header>
+      <header><p class="ueber">Grundvorstellung · ${LEITIDEEN[k.leitidee].name}</p><h1>${A.titel}</h1><p>${A.untertitel || ""}</p></header>
       <div class="p-inhalt">${A.gv.map((g, i) => `
         <section class="p-gv">
           <div class="p-kopf"><span class="nr">${i + 1}</span><h2>${g.name}</h2></div>
@@ -182,9 +184,9 @@ function renderPlakat(id) {
           <p class="p-kern">${g.kern}</p>
           <div class="p-viz" data-viz="${g.key}"></div>
         </section>`).join("")}</div>
-      <footer>Beispiel: Bremsweg s = (v : 10)² · Fachschaft Mathematik · LMG Uetersen</footer>
+      <footer>${A.kontext ? A.kontext + " · " : ""}Fachschaft Mathematik · LMG Uetersen</footer>
     </article>`;
-  main.querySelectorAll(".p-viz").forEach((d) => VIZ[d.dataset.viz](d, { statisch: true }));
+  main.querySelectorAll(".p-viz").forEach((d, i) => { const g = A.gv[i]; if (VIZ[g.key]) VIZ[g.key](d, { statisch: true }); else d.innerHTML = bildVon(g); });
 }
 
 // ---------- Router ----------

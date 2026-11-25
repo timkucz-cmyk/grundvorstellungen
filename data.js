@@ -112,31 +112,7 @@ const KONZEPTE = [
     { name: "Länge des Randes", kurz: "Den Rand abwickeln und als Strecke messen.", ab: "5", bis: "9" },
   ]},
 
-  // ---------- Raum und Form ----------
-  { id: "winkel", name: "Winkel", leitidee: "R", gv: [
-    { name: "Drehung", kurz: "Wie weit wurde gedreht?", ab: "5", bis: "Q2" },
-    { name: "Knick / Ecke", kurz: "Zwei Schenkel von einem Scheitel aus (statisch).", ab: "5", bis: "8" },
-    { name: "Richtungsunterschied", kurz: "Wie stark weichen zwei Richtungen voneinander ab?", ab: "5", bis: "Q2" },
-  ]},
-  { id: "kongruenz", name: "Kongruenz", leitidee: "R", gv: [
-    { name: "Deckungsgleichheit", kurz: "Durch Verschieben, Drehen, Spiegeln aufeinanderlegbar.", ab: "5", bis: "8" },
-  ]},
-  { id: "aehnlichkeit", name: "Ähnlichkeit", leitidee: "R", gv: [
-    { name: "Vergrößern / Verkleinern", kurz: "Alle Längen mit demselben Faktor.", ab: "9", bis: "10" },
-    { name: "Gleiche Form", kurz: "Gleiche Winkel, gleiche Längenverhältnisse.", ab: "9", bis: "10" },
-  ]},
-  { id: "pythagoras", name: "Satz des Pythagoras", leitidee: "R", gv: [
-    { name: "Flächen über den Seiten", kurz: "Die beiden kleinen Quadrate füllen zusammen das große.", ab: "9", bis: "10" },
-    { name: "Abstand berechnen", kurz: "Wie weit ist es „schräg“?", ab: "9", bis: "Q2" },
-  ]},
-  { id: "vektor", name: "Vektor", leitidee: "R", gv: [
-    { name: "Verschiebung", kurz: "Alle gleich langen, gleich gerichteten Pfeile sind derselbe Vektor.", ab: "E", bis: "Q2" },
-    { name: "Zahlentupel", kurz: "Ein Vektor ist eine Liste von Koordinaten.", ab: "E", bis: "Q2" },
-    { name: "Gerichtete Größe", kurz: "Betrag und Richtung – wie Kraft oder Geschwindigkeit.", ab: "E", bis: "Q2" },
-  ]},
-  { id: "koordinaten", name: "Koordinaten", leitidee: "R", gv: [
-    { name: "Adresse eines Punktes", kurz: "Erst nach rechts, dann nach oben.", ab: "5", bis: "Q2" },
-  ]},
+  // Raum und Form: siehe geometrie.js
 
   // ---------- Funktionaler Zusammenhang ----------
   { id: "funktionaler-zusammenhang", name: "Funktionaler Zusammenhang", leitidee: "F", ausarbeitung: "fz", gv: [
@@ -220,6 +196,7 @@ const AUSARBEITUNGEN = {
     titel: "Funktionaler Zusammenhang",
     einleitung: "Eine Funktion – drei Blickwinkel. Verstanden hat den Begriff, wer zwischen ihnen wechseln kann.",
     kontext: "Durchgehendes Beispiel: Bremsweg s = (v : 10)² (v in km/h, s in m)",
+    untertitel: "Eine Funktion – drei Blickwinkel",
     gv: [
       {
         key: "zuordnung", name: "Zuordnung",

@@ -197,3 +197,4 @@ body.plakat-modus main.wrap { max-width: none; margin-top: 0; padding: 16px; }
 .kopf-zusatz { display: flex; gap: 8px 20px; flex-wrap: wrap; align-items: center; margin-top: 8px; font-size: 15px; color: #cfd3d8; }
 .kopf-zusatz a { color: var(--mathe-hell); font-weight: 700; text-decoration: none; }
 @media (max-width: 760px) { .gv-zeile { grid-template-columns: minmax(0, 1fr); } .gv-bild { max-width: 320px; } }
+.p-viz .mini { background: #fff; }
