@@ -1,4 +1,4 @@
-// Grundvorstellungen – Leitidee Raum und Form: Mittelstufen-Geometrie und analytische Geometrie
+// Grundvorstellungen – Leitideen Größen und Messen sowie Raum und Form (Mittelstufen- und analytische Geometrie)
 // Jedes Konzept vollständig ausgearbeitet (kompakt: Bild + Leitfrage + Satz, Rest ausklappbar).
 // Stufenangaben: Vorschlag, mit dem Fachcurriculum abgleichen.
 
@@ -386,6 +386,150 @@
     },
   ];
 
+  // ---------- Größen und Messen ----------
+  const qd = (x, y, s, c = T, f = "#f6f6f4") => pg(`${x},${y} ${x + s},${y} ${x + s},${y + s} ${x},${y + s}`, c, f);
+  const quader = (x, y, b, h, t) => pg(`${x},${y} ${x + b},${y} ${x + b},${y + h} ${x},${y + h}`, T, "#f6f6f4") + pg(`${x},${y} ${x + b},${y} ${x + b + t},${y - t} ${x + t},${y - t}`, T, "#ecece8") + pg(`${x + b},${y} ${x + b + t},${y - t} ${x + b + t},${y + h - t} ${x + b},${y + h}`, T, "#e4e5e3");
+  const GROESSEN = [
+    {
+      id: "groessen", name: "Größen und Messen", leitidee: "G",
+      einleitung: "Messen heißt vergleichen – mit einer Einheit, die man sich vorstellen kann.",
+      untertitel: "Vergleichen · Stützpunkte · Verfeinern",
+      gv: [
+        { name: "Vergleich mit Einheit", kurz: "Wie oft passt die Einheit hinein?", ab: "5", bis: "7",
+          leitfrage: "Wie oft passt die Einheit hinein?",
+          kern: "Messen heißt, die Größe mit einer <b>Einheit zu vergleichen</b>: Wie oft passt die Einheit hinein?",
+          bild: pg("30,55 210,55 210,85 30,85", H, "#f6f6f4") + pg("30,55 60,55 60,85 30,85", T, "#ecece8") + [0, 1, 2, 3, 4, 5, 6].map((k) => li(30 + 30 * k, 85, 30 + 30 * k, 97, T, 2)).join("") + tx(45, 118, "1 E", 13) + tx(165, 118, "6 E", 13, A),
+          fehler: ["<b>Zahl ohne Einheit:</b> „Der Tisch ist 120 lang.“", "<b>Ab 1 messen:</b> Am Lineal wird ab der 1 statt ab der 0 gemessen."],
+          diagnose: "Ein Stift reicht am Lineal von 3 cm bis 11 cm. Wie lang ist er?", loesung: "8 cm – nicht 11 cm.",
+          impuls: "<b>Eigene Einheiten:</b> Den Tisch in Stiftlängen, Handspannen und cm messen – wozu Normeinheiten?",
+          sprache: "„Der Tisch ist 120 cm lang – 1 cm passt 120-mal hinein.“", stufen: "Kl. 5 Längen, Massen, Zeit · 6 Flächen" },
+        { name: "Stützpunkte", kurz: "Bekannte Repräsentanten zum Schätzen.", ab: "5", bis: "Q2",
+          leitfrage: "Wie groß ist das ungefähr?",
+          kern: "Bekannte <b>Repräsentanten</b> helfen beim Schätzen: 1 m ≈ großer Schritt, 1 kg ≈ Liter Milch, 1 cm ≈ Fingerbreite.",
+          bild: pg("60,130 110,130 110,20 60,20", T, "#f6f6f4") + pt(101, 78, T, 3) + li(150, 130, 150, 75, T, 4) + li(143, 130, 157, 130, T, 2) + li(143, 75, 157, 75, T, 2) + tx(165, 107, "1 m", 13, T, "start") + tx(52, 80, "2 m", 13, A, "end"),
+          fehler: ["<b>Keine Vorstellung:</b> Der Klassenraum wird auf „5000 m²“ geschätzt.", "<b>Einheit daneben:</b> „Das Auto ist 4 cm lang.“"],
+          diagnose: "Schätze die Höhe des Klassenraums und begründe mit einer Stützpunktgröße.", loesung: "Etwa 3 m – rund 1,5 Türhöhen.",
+          impuls: "<b>Persönliche Stützpunkte:</b> Schritt, Spanne, Fingerbreite ausmessen und notieren.",
+          sprache: "„Das sind etwa drei Türhöhen, also rund 6 m.“", stufen: "Kl. 5/6 Schätzen · 7–10 Sachaufgaben, Fermi-Aufgaben" },
+        { name: "Verfeinern", kurz: "Kleinere Einheit, wenn es nicht passt.", ab: "5", bis: "8",
+          leitfrage: "Was tun, wenn die Einheit nicht genau passt?",
+          kern: "Passt die Einheit nicht genau, wird sie <b>verfeinert</b>: m → dm → cm → mm. So entstehen Kommazahlen.",
+          bild: li(20, 50, 220, 50) + [0, 1, 2, 3, 4].map((k) => li(20 + 50 * k, 35, 20 + 50 * k, 50, T, 2)).join("") + li(70, 50, 30, 105, A, 1.5, "4 4") + li(120, 50, 210, 105, A, 1.5, "4 4") + li(30, 115, 210, 115) + [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((k) => li(30 + 18 * k, 115, 30 + 18 * k, k % 5 ? 107 : 102, T, 1.5)).join(""),
+          fehler: ["<b>Überall Faktor 10:</b> 1 m² = 10 dm².", "<b>Komma als Trenner:</b> 1,5 m wird als „1 m 5 cm“ gelesen."],
+          diagnose: "Wie viele cm sind 1,05 m – und wie viele cm² sind 1 dm²?", loesung: "105 cm; 100 cm².",
+          impuls: "<b>Meterband:</b> In dm, cm, mm unterteilen und Kommazahlen darauf zeigen.",
+          sprache: "„1,25 m sind 1 m und 25 cm.“", stufen: "Kl. 5/6 Umrechnen, Dezimalzahlen · 7 Flächen- und Volumeneinheiten" },
+      ],
+    },
+    {
+      id: "flaecheninhalt", name: "Flächeninhalt", leitidee: "G",
+      einleitung: "Der Flächeninhalt sagt, wie viel Fläche eine Figur bedeckt – durch Auslegen, Umlegen und Rechnen.",
+      untertitel: "Auslegen · Zerlegen · Rechnen",
+      gv: [
+        { name: "Auslegen", kurz: "Wie viele Einheitsquadrate passen hinein?", ab: "5", bis: "7",
+          leitfrage: "Wie viele Einheitsquadrate passen hinein?",
+          kern: "Der Flächeninhalt sagt, wie viele <b>Einheitsquadrate</b> die Figur bedecken.",
+          bild: gitter(40, 20, 8, 5, 20) + pg("60,40 140,40 140,80 100,80 100,120 60,120", T, "#ecece8"),
+          fehler: ["<b>Fläche = Umfang:</b> Größerer Umfang heiße größere Fläche.", "<b>Randkästchen:</b> Werden doppelt oder gar nicht gezählt."],
+          diagnose: "Haben Rechtecke mit gleichem Umfang immer gleichen Flächeninhalt?", loesung: "Nein: 1 × 5 und 3 × 3 haben beide Umfang 12, aber 5 bzw. 9 Kästchen.",
+          impuls: "<b>Auslegen:</b> Die Tischfläche mit gleichen Karten auslegen und zählen.",
+          sprache: "„Die Figur ist 12 Kästchen groß.“", stufen: "Kl. 5/6 Rechteck, Einheiten · 7–10 Vielecke, Kreis" },
+        { name: "Zerlegen und Ergänzen", kurz: "Umlegen ändert den Flächeninhalt nicht.", ab: "6", bis: "10",
+          leitfrage: "Wie lege ich die Figur so um, dass ich sie berechnen kann?",
+          kern: "Beim <b>Zerlegen und Umlegen</b> bleibt der Flächeninhalt gleich – so wird ein Parallelogramm zum Rechteck.",
+          bild: pg("40,120 160,120 200,50 80,50", H, "#f6f6f4") + pg("40,120 80,120 80,50", G, "#ecece8") + li(80, 50, 80, 120, T, 2, "5 4") + pg("160,120 200,120 200,50", T, "none", 2.5, "5 4") + pf(60, 135, 180, 135, A, 1.5, "4 4"),
+          fehler: ["<b>Schräge Seite als Höhe:</b> A = Grundseite · schräge Seite.", "<b>Formeln ohne Herkunft:</b> ½ · g · h wird nicht als halbes Parallelogramm verstanden."],
+          diagnose: "Warum gilt für Dreiecke A = ½ · g · h?", loesung: "Zwei gleiche Dreiecke bilden ein Parallelogramm mit A = g · h.",
+          impuls: "<b>Schere:</b> Parallelogramm ausschneiden, Dreieck abschneiden, ansetzen – Rechteck.",
+          sprache: "„Ich schneide ab und lege um – die Fläche bleibt gleich.“", stufen: "Kl. 7 Parallelogramm, Dreieck, Trapez · 9/10 Kreis" },
+        { name: "Reihen mal Spalten", kurz: "Länge · Breite zählt Quadrate in Reihen.", ab: "5", bis: "Q2",
+          leitfrage: "Warum rechnet man Länge mal Breite?",
+          kern: "Beim Rechteck gibt <b>Länge · Breite</b> an, wie viele Einheitsquadrate in Reihen und Spalten liegen.",
+          bild: gitter(60, 30, 4, 3, 25) + pg("60,30 160,30 160,105 60,105", T, "none") + tx(110, 125, "4", 15) + tx(175, 73, "3", 15),
+          fehler: ["<b>Einheit falsch:</b> 4 cm · 3 cm = 12 cm.", "<b>Umrechnen:</b> 1 m² = 100 cm²."],
+          diagnose: "Wie viele cm² sind 1 m²?", loesung: "10 000 cm² – 100 Reihen zu je 100.",
+          impuls: "<b>Quadratmeter:</b> 1 m² aus Zeitungspapier auslegen und die cm²-Plättchen hochrechnen.",
+          sprache: "„3 Reihen mit je 4 Quadraten – 12 cm².“", stufen: "Kl. 5/6 Rechteck · 7–10 Formeln · Q Integral als Summe" },
+      ],
+    },
+    {
+      id: "umfang", name: "Umfang", leitidee: "G",
+      einleitung: "Der Umfang ist die Länge des Randes – eine Länge, keine Fläche.",
+      untertitel: "Rand abwickeln",
+      gv: [
+        { name: "Länge des Randes", kurz: "Den Rand abwickeln und messen.", ab: "5", bis: "10",
+          leitfrage: "Wie lang ist der Weg einmal ringsum?",
+          kern: "Der Umfang ist die <b>Länge des Randes</b> – als würde man ihn abwickeln und als Strecke messen.",
+          bild: pg("70,25 170,25 170,80 70,80", T, "#f6f6f4", 3) + pf(70, 25, 120, 25, T, 3) + li(20, 115, 220, 115, T, 3) + [20, 70, 95, 195, 220].map((x) => li(x, 108, x, 122, T, 2)).join("") + tx(120, 140, "abgewickelt", 12, A),
+          fehler: ["<b>Umfang = Fläche:</b> Beide werden verwechselt oder in cm² angegeben.", "<b>Kanten vergessen:</b> Bei zusammengesetzten Figuren fehlen Randstücke."],
+          diagnose: "Ein Rechteck hat 12 cm² Fläche. Wie groß ist sein Umfang?", loesung: "Nicht eindeutig: 14 cm (3 × 4), 16 cm (2 × 6) oder 26 cm (1 × 12).",
+          impuls: "<b>Schnur:</b> Um eine Figur legen, gerade ziehen und messen.",
+          sprache: "„Der Umfang ist 14 cm – einmal ringsherum.“", stufen: "Kl. 5/6 Rechteck · 9/10 Kreisumfang" },
+      ],
+    },
+    {
+      id: "kreis", name: "Kreis und π", leitidee: "G",
+      einleitung: "Am Kreis hängen Länge und Fläche über die Zahl π zusammen.",
+      untertitel: "π als Verhältnis · Fläche durch Umlegen",
+      gv: [
+        { name: "π als Verhältnis", kurz: "Der Durchmesser passt gut 3-mal um den Kreis.", ab: "9", bis: "Q2",
+          leitfrage: "Wie oft passt der Durchmesser um den Kreis?",
+          kern: "Bei jedem Kreis passt der Durchmesser <b>gut dreimal</b> um den Rand: u : d = π ≈ 3,14.",
+          bild: `<circle cx="120" cy="55" r="25" fill="#f6f6f4" stroke="${T}" stroke-width="2.5"/>` + li(95, 55, 145, 55, T, 3) + li(20, 115, 70, 115, T, 5) + li(70, 115, 120, 115, G, 5) + li(120, 115, 170, 115, T, 5) + li(170, 115, 177, 115, G, 5) + tx(120, 138, "u ≈ 3,14 · d", 13),
+          fehler: ["<b>π als Taste:</b> π wird nicht als Verhältnis verstanden.", "<b>r statt d:</b> u = π · r."],
+          diagnose: "Ein Rad hat 70 cm Durchmesser. Wie weit rollt es bei einer Umdrehung?", loesung: "≈ 2,2 m (π · 0,7 m).",
+          impuls: "<b>Dosen messen:</b> Umfang und Durchmesser messen, Quotient bilden – immer ≈ 3,14.",
+          sprache: "„Der Umfang ist gut dreimal so lang wie der Durchmesser.“", stufen: "Kl. 9/10 Kreis · E/Q Bogenmaß" },
+        { name: "Fläche durch Umlegen", kurz: "Sektoren werden fast zum Rechteck.", ab: "9", bis: "Q2",
+          leitfrage: "Wie wird aus dem Kreis ein Rechteck?",
+          kern: "Zerlegt man den Kreis in viele Sektoren und legt sie um, entsteht fast ein <b>Rechteck</b> aus Radius und halbem Umfang: A = π r².",
+          bild: pa("M40 110 L60 50 L80 110 L100 50 L120 110 L140 50 L160 110 L180 50 L200 110", T, 2) + li(60, 50, 180, 50, T, 2.5) + li(40, 110, 200, 110, T, 2.5) + tx(28, 86, "r", 15) + tx(120, 135, "≈ π · r", 13),
+          fehler: ["<b>Fläche wie Umfang:</b> A = 2 π r.", "<b>Falsch quadriert:</b> π r² wird als (π r)² gerechnet."],
+          diagnose: "Der Radius wird verdoppelt. Wie ändert sich die Fläche?", loesung: "Sie vervierfacht sich.",
+          impuls: "<b>Pizza umlegen:</b> Papierkreis in 16 Stücke schneiden und abwechselnd zu einem „Rechteck“ legen.",
+          sprache: "„Halber Umfang mal Radius – also π r².“", stufen: "Kl. 9/10 Kreisfläche · Q Integral" },
+      ],
+    },
+    {
+      id: "oberflaeche", name: "Oberfläche", leitidee: "G",
+      einleitung: "Die Oberfläche ist die Summe aller Flächen, die einen Körper begrenzen.",
+      untertitel: "Netz abwickeln",
+      gv: [
+        { name: "Netz abwickeln", kurz: "Oberfläche = Flächeninhalt des Netzes.", ab: "6", bis: "10",
+          leitfrage: "Wie viel Papier braucht man zum Einpacken?",
+          kern: "Die Oberfläche erhält man, wenn man den Körper <b>aufschneidet und abwickelt</b>: Sie ist der Flächeninhalt des Netzes.",
+          bild: [[70, 55], [95, 55], [120, 55], [145, 55], [95, 30], [95, 80]].map(([x, y]) => qd(x, y, 25)).join(""),
+          fehler: ["<b>cm² oder cm³?</b> Oberfläche und Volumen werden verwechselt.", "<b>Netz unvollständig:</b> Seiten fehlen oder kommen doppelt vor."],
+          diagnose: "Welche Oberfläche hat ein Würfel mit 3 cm Kante?", loesung: "6 · 9 cm² = 54 cm².",
+          impuls: "<b>Verpackungen:</b> Schachteln aufschneiden, Netz ausmessen, Fläche berechnen.",
+          sprache: "„Die Oberfläche ist die Fläche des Netzes.“", stufen: "Kl. 6 Quader, Würfel · 9/10 Prisma, Zylinder, Pyramide" },
+      ],
+    },
+    {
+      id: "volumen", name: "Volumen", leitidee: "G",
+      einleitung: "Das Volumen sagt, wie viel Raum ein Körper einnimmt – durch Ausfüllen und Schichten.",
+      untertitel: "Ausfüllen · Schichten",
+      gv: [
+        { name: "Ausfüllen", kurz: "Wie viele Einheitswürfel passen hinein?", ab: "5", bis: "10",
+          leitfrage: "Wie viele Einheitswürfel passen hinein?",
+          kern: "Das Volumen sagt, wie viele <b>Einheitswürfel</b> den Körper ausfüllen.",
+          bild: quader(60, 65, 100, 50, 30) + [85, 110, 135].map((x) => li(x, 65, x, 115, T, 1.5)).join("") + li(60, 90, 160, 90, T, 1.5),
+          fehler: ["<b>Nur außen gezählt:</b> Innere Würfel werden vergessen.", "<b>1 dm³ = 10 cm³</b> statt 1000 cm³."],
+          diagnose: "Wie viele 1-cm-Würfel passen in einen Würfel mit 1 dm Kante?", loesung: "1000 – also 1 dm³ = 1000 cm³ = 1 Liter.",
+          impuls: "<b>Litermaß:</b> Einen 1-dm³-Würfel aus Pappe bauen und mit Wasser füllen.",
+          sprache: "„In den Quader passen 24 Einheitswürfel – 24 cm³.“", stufen: "Kl. 5/6 Quader · 9/10 Prisma, Zylinder, Kegel, Kugel" },
+        { name: "Schichten", kurz: "Grundfläche · Höhe: Schicht auf Schicht.", ab: "6", bis: "Q2",
+          leitfrage: "Wie viele Schichten liegen übereinander?",
+          kern: "Volumen ist <b>Grundfläche · Höhe</b>: Eine Schicht der Grundfläche wird so oft gestapelt, wie die Höhe angibt.",
+          bild: quader(60, 50, 100, 75, 30) + li(60, 75, 160, 75, T, 1.5) + li(60, 100, 160, 100, T, 1.5) + li(160, 75, 190, 50, T, 1.5) + li(160, 100, 190, 75, T, 1.5) + tx(205, 92, "h", 15, T, "start") + tx(125, 43, "G", 14),
+          fehler: ["<b>Drei Formeln:</b> Quader, Prisma, Zylinder gelten als verschiedene Ideen.", "<b>Schief gemessen:</b> Bei schiefen Körpern wird die Kante statt der Höhe genommen."],
+          diagnose: "Ein gerader und ein schiefer Stapel gleicher Münzen – gleiches Volumen?", loesung: "Ja – gleiche Grundfläche, gleiche Höhe (Prinzip von Cavalieri).",
+          impuls: "<b>Kartenstapel:</b> Gerade und schief stapeln – was ändert sich, was nicht?",
+          sprache: "„Grundfläche mal Höhe – Schicht auf Schicht.“", stufen: "Kl. 6 Quader · 9/10 Prisma, Zylinder · Q Rotationskörper" },
+      ],
+    },
+  ];
+
   // ---------- in die Datenbasis einhängen ----------
   QUELLEN.push(
     "Weigand, H.-G. u. a. (2018): Didaktik der Geometrie für die Sekundarstufe I. 3. Aufl. Berlin: Springer.",
@@ -394,17 +538,22 @@
   const qMittel = QUELLEN.length - 2, qAna = QUELLEN.length - 1;
   const analytisch = ["vektor", "vektorrechnung", "abstand", "gerade", "ebene", "skalarprodukt", "lage"];
 
-  const ohneR = KONZEPTE.filter((k) => k.leitidee !== "R");
-  const pos = ohneR.findIndex((k) => k.leitidee === "F");
-  const neu = GEO.map((k) => ({
-    id: k.id, name: k.name, leitidee: "R", ausarbeitung: k.id,
-    gv: k.gv.map((g) => ({ name: g.name, kurz: g.kurz, ab: g.ab, bis: g.bis })),
-  }));
-  ohneR.splice(pos, 0, ...neu);
-  KONZEPTE.length = 0;
-  KONZEPTE.push(...ohneR);
+  const alle = [...GEO, ...GROESSEN];
+  const reihe = Object.keys(LEITIDEEN);
+  ["G", "R"].forEach((L) => {
+    const rest = KONZEPTE.filter((k) => k.leitidee !== L);
+    let pos = rest.findIndex((k) => reihe.indexOf(k.leitidee) > reihe.indexOf(L));
+    if (pos < 0) pos = rest.length;
+    const neu = alle.filter((k) => (k.leitidee || "R") === L).map((k) => ({
+      id: k.id, name: k.name, leitidee: L, ausarbeitung: k.id,
+      gv: k.gv.map((g) => ({ name: g.name, kurz: g.kurz, ab: g.ab, bis: g.bis })),
+    }));
+    rest.splice(pos, 0, ...neu);
+    KONZEPTE.length = 0;
+    KONZEPTE.push(...rest);
+  });
 
-  GEO.forEach((k) => {
+  alle.forEach((k) => {
     AUSARBEITUNGEN[k.id] = {
       titel: k.name, einleitung: k.einleitung, untertitel: k.untertitel,
       gv: k.gv.map((g, i) => ({ ...g, key: `${k.id}-${i}` })),

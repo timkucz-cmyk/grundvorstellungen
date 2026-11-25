@@ -93,26 +93,7 @@ const KONZEPTE = [
     { name: "Umkehrung der Exponentialfunktion", kurz: "Vom Bestand zurück zur Zeit.", ab: "10", bis: "Q2" },
   ]},
 
-  // ---------- Größen und Messen ----------
-  { id: "groessen", name: "Größen und Messen", leitidee: "G", gv: [
-    { name: "Vergleich mit Einheit", kurz: "Messen heißt zählen, wie oft die Einheit hineinpasst.", ab: "5", bis: "7" },
-    { name: "Stützpunkte", kurz: "Bekannte Repräsentanten: 1 m ≈ Türbreite, 1 kg ≈ Milchpackung.", ab: "5", bis: "Q2" },
-    { name: "Verfeinern der Einheit", kurz: "Passt es nicht genau, nimm eine kleinere Einheit.", ab: "5", bis: "7" },
-  ]},
-  { id: "flaecheninhalt", name: "Flächeninhalt", leitidee: "G", gv: [
-    { name: "Auslegen", kurz: "Wie viele Einheitsquadrate passen hinein?", ab: "5", bis: "7" },
-    { name: "Zerlegen und Ergänzen", kurz: "Umlegen ändert den Flächeninhalt nicht.", ab: "5", bis: "9" },
-    { name: "Produkt von Längen", kurz: "Rechteck: Reihen mal Spalten von Einheitsquadraten.", ab: "5", bis: "Q2" },
-  ]},
-  { id: "volumen", name: "Volumen", leitidee: "G", gv: [
-    { name: "Ausfüllen", kurz: "Wie viele Einheitswürfel passen hinein?", ab: "5", bis: "7" },
-    { name: "Schichten", kurz: "Grundfläche mal Höhe – Schicht auf Schicht.", ab: "6", bis: "10" },
-  ]},
-  { id: "umfang", name: "Umfang", leitidee: "G", gv: [
-    { name: "Länge des Randes", kurz: "Den Rand abwickeln und als Strecke messen.", ab: "5", bis: "9" },
-  ]},
-
-  // Raum und Form: siehe geometrie.js
+  // Größen und Messen, Raum und Form: siehe geometrie.js
 
   // ---------- Funktionaler Zusammenhang ----------
   { id: "funktionaler-zusammenhang", name: "Funktionaler Zusammenhang", leitidee: "F", ausarbeitung: "fz", gv: [
